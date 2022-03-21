@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "762540637557",
-    "project_id": "projemanag-5f2b4",
-    "storage_bucket": "projemanag-5f2b4.appspot.com"
+    "project_number": "1027010220418",
+    "project_id": "projeemana-4fc98",
+    "storage_bucket": "projeemana-4fc98.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:762540637557:android:7508cec35f95641bcca73c",
+        "mobilesdk_app_id": "1:1027010220418:android:859c9072071a5000abbf9b",
         "android_client_info": {
           "package_name": "vc.android.projeemana"
         }
       },
       "oauth_client": [
         {
-          "client_id": "762540637557-es7o6s2jqkmd5597m7bhqor68j8utfq0.apps.googleusercontent.com",
+          "client_id": "1027010220418-fh890hcpud16m3gce7o7k56brdsfh1ea.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "vc.android.projeemana",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "762540637557-sa18v4s9kciblbmgoeq1ou4r3o1dl46m.apps.googleusercontent.com",
+          "client_id": "1027010220418-6qs52qgs0jfn9t4ld3lu0f9drt3l8kk8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDsuRRAVY5wErxznCU4Qx-qfnvFh1Zf-Xw"
+          "current_key": "AIzaSyDwpn2B--MfyUsVyEFAU21nktpXk_2LoCw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "762540637557-sa18v4s9kciblbmgoeq1ou4r3o1dl46m.apps.googleusercontent.com",
+              "client_id": "1027010220418-6qs52qgs0jfn9t4ld3lu0f9drt3l8kk8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

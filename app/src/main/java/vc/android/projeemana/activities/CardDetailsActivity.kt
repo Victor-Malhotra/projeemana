@@ -455,8 +455,8 @@ class CardDetailsActivity : BaseActivity() {
                 mSelectedDueDateMilliSeconds = theDate!!.time
             },
             year,
-            month,
-            day
+            day,
+            month
         )
         dpd.show() // It is used to show the datePicker Dialog.
     }
