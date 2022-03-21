@@ -1,0 +1,231 @@
+package vc.android.projeemana.activities
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import vc.android.projeemana.utils.Constants
+import vc.android.projeemana.R
+import vc.android.projeemana.adapters.BoardItemsAdapter
+import vc.android.projeemana.firebase.FirestoreClass
+import vc.android.projeemana.models.Board
+import vc.android.projeemana.models.User
+
+
+
+
+
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    companion object {
+        //A unique code for starting the activity for result
+        const val MY_PROFILE_REQUEST_CODE: Int = 11
+        const val CREATE_BOARD_REQUEST_CODE: Int = 12
+    }
+
+    private lateinit var mUserName: String
+
+    /**
+     * This function is auto created by Android when the Activity Class is created.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        //This call the parent constructor
+        super.onCreate(savedInstanceState)
+
+        // This is used to align the xml view to this class
+        setContentView(R.layout.activity_main)
+
+        setupActionBar()
+
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+
+        // Assign the NavigationView.OnNavigationItemSelectedListener to navigation view.
+        navView.setNavigationItemSelectedListener(this)
+
+
+        // START
+        // Get the current logged in user details.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().loadUserData(this@MainActivity, true)
+
+        // END
+        val fabCreateBoard = findViewById<FloatingActionButton>(R.id.fab_create_board)
+
+        fabCreateBoard.setOnClickListener {
+            val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
+            intent.putExtra(Constants.NAME, mUserName)
+            startActivityForResult(intent, CREATE_BOARD_REQUEST_CODE)
+        }
+    }
+
+    override fun onBackPressed() {
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            // A double back press function is added in Base Activity.
+            doubleBackToExit()
+        }
+    }
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        when (menuItem.itemId) {
+            R.id.nav_my_profile -> {
+                startActivityForResult(Intent(this@MainActivity, MyProfileActivity::class.java), MY_PROFILE_REQUEST_CODE)
+            }
+
+            R.id.nav_sign_out -> {
+                // Here sign outs the user from firebase in this device.
+                FirebaseAuth.getInstance().signOut()
+
+                // Send the user to the intro screen of the application.
+                val intent = Intent(this, IntroActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    /**
+     * A function to setup action bar
+     */
+    private fun setupActionBar() {
+
+        val toolbarMainActivity = findViewById<Toolbar>(R.id.toolbar_main_activity)
+
+        setSupportActionBar(toolbarMainActivity)
+        toolbarMainActivity.setNavigationIcon(R.drawable.ic_action_navigation_menu)
+
+        toolbarMainActivity.setNavigationOnClickListener {
+            toggleDrawer()
+        }
+    }
+
+    /**
+     * A function for opening and closing the Navigation Drawer.
+     */
+    private fun toggleDrawer() {
+
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+    }
+
+
+    // START
+    /**
+     * A function to get the current user details from firebase.
+     */
+     fun updateNavigationUserDetails(user: User, isToReadBoardsList: Boolean) {
+
+        hideProgressDialog()
+
+    mUserName = user.name
+
+    // The instance of the header view of the navigation view.
+    val navView = findViewById<NavigationView>(R.id.nav_view)
+    val headerView = navView.getHeaderView(0)
+
+    // The instance of the user image of the navigation view.
+        val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
+
+        // Load the user image in the ImageView.
+        Glide
+            .with(this@MainActivity)
+            .load(user.image) // URL of the image
+            .centerCrop() // Scale type of the image.
+            .placeholder(R.drawable.ic_user_place_holder) // A default place holder
+            .into(navUserImage) // the view in which the image will be loaded.
+
+        // The instance of the user name TextView of the navigation view.
+        val navUserName = headerView.findViewById<TextView>(R.id.tv_username)
+        // Set the user name
+        navUserName.text = user.name
+
+        // TODO (Step 8: Here if the isToReadBoardList is TRUE then get the list of boards.)
+        // START
+        if (isToReadBoardsList) {
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FirestoreClass().getBoardsList(this@MainActivity)
+        }
+        // END
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK
+            && requestCode == MY_PROFILE_REQUEST_CODE
+        ) {
+
+            // Get the user updated details.
+            FirestoreClass().loadUserData(this@MainActivity, true)
+        } else if (resultCode == Activity.RESULT_OK
+            && requestCode == CREATE_BOARD_REQUEST_CODE
+        ) {
+            // Get the latest boards list.
+            FirestoreClass().getBoardsList(this@MainActivity)
+        } else {
+            Log.e("Cancelled", "Cancelled")
+        }
+    }
+
+    fun populateBoardsListToUI(boardsList: ArrayList<Board>) {
+
+        hideProgressDialog()
+        val rvBoardsList = findViewById<RecyclerView>(R.id.rv_boards_list)
+        val tvNoBoardsAvailable = findViewById<TextView>(R.id.tv_no_boards_available)
+
+        if (boardsList.size > 0) {
+
+            rvBoardsList.visibility = View.VISIBLE
+            tvNoBoardsAvailable.visibility = View.GONE
+
+            rvBoardsList.layoutManager = LinearLayoutManager(this@MainActivity)
+            rvBoardsList.setHasFixedSize(true)
+
+            // Create an instance of BoardItemsAdapter and pass the boardList to it.
+            val adapter = BoardItemsAdapter(this@MainActivity, boardsList)
+            rvBoardsList.adapter = adapter // Attach the adapter to the recyclerView.
+            adapter.setOnClickListener(object :
+                BoardItemsAdapter.OnClickListener {
+                override fun onClick(position: Int, model: Board) {
+                    val intent = Intent(this@MainActivity, TaskListActivity::class.java)
+                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
+                    startActivity(intent)
+                }
+            })
+        } else {
+            rvBoardsList.visibility = View.GONE
+            tvNoBoardsAvailable.visibility = View.VISIBLE
+        }
+    }
+
+
+    // END
+}
