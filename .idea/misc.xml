@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.196875" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/drawable/button_background.xml" value="0.14375" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_forgot_password.xml" value="0.181640625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_intro.xml" value="0.128515625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_main.xml" value="0.181640625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_sign_in.xml" value="0.181640625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_sign_up.xml" value="0.128515625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_splash.xml" value="0.181640625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/activity_task_list.xml" value="0.1" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/content_main.xml" value="0.181640625" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/layout/item_task.xml" value="0.166796875" />
+        <entry key="..\:/Users/Victor/AndroidStudioProjects/projeemana/app/src/main/res/menu/menu_members.xml" value="0.166796875" />
         <entry key="..\:/Users/Victor/AndroidStudioProjects/projemanag/app/src/main/res/drawable-anydpi-v24/ic_stat_ic_notification.xml" value="0.196875" />
         <entry key="..\:/Users/Victor/AndroidStudioProjects/projemanag/app/src/main/res/drawable-anydpi/shape_dialog_rounded.xml" value="0.2625" />
         <entry key="..\:/Users/Victor/AndroidStudioProjects/projemanag/app/src/main/res/drawable/ic_vector_color_accent_done_24dp.xml" value="0.2625" />

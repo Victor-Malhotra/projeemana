@@ -22,7 +22,7 @@ class TaskListActivity : BaseActivity() {
 
     private lateinit var mBoardDetails: Board
 
-    private lateinit var mBoardDocumentId: String
+    private var mBoardDocumentId: String = ""
 
     lateinit var mAssignedMembersDetailList: ArrayList<User>
 
@@ -62,6 +62,12 @@ class TaskListActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle presses on the action bar menu items
         when (item.itemId) {
+            R.id.action_delete_board ->{
+                FirestoreClass().deleteBoard(mBoardDetails)
+               startActivity(Intent(this@TaskListActivity, MainActivity::class.java))
+                finish()
+            }
+
             R.id.action_members -> {
 
                 val intent = Intent(this@TaskListActivity, MembersActivity::class.java)

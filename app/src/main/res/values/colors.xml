@@ -14,6 +14,14 @@
     <color name="task_list_action_color">#F7F6FA</color>
     <color name="task_list_title_view_bg_color">#F8F8F8</color>
 
+    <color name="colorThemePink">#0591F8</color>
+    <color name="colorThemeOrange">#0C90F1</color>
+
+    <color name="colorPrimaryText">#222934</color>
+    <color name="colorSecondaryText">#989898</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+
     <!--
         DO NOT WORRY ABOUT COLORS UNDERNEATH
     -->

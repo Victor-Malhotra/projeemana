@@ -13,6 +13,7 @@ data class Board(
     var documentId: String = "",
     var taskList: ArrayList<Task> = ArrayList()
 ) : Parcelable {
+
     constructor(source: Parcel) : this(
         source.readString()!!,
         source.readString()!!,

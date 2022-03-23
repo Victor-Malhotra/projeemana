@@ -21,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import vc.android.projeemana.utils.Constants
 import vc.android.projeemana.R
@@ -29,9 +29,6 @@ import vc.android.projeemana.adapters.BoardItemsAdapter
 import vc.android.projeemana.firebase.FirestoreClass
 import vc.android.projeemana.models.Board
 import vc.android.projeemana.models.User
-
-
-
 
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -42,9 +39,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         const val CREATE_BOARD_REQUEST_CODE: Int = 12
     }
 
+    private val mFireStore = FirebaseFirestore.getInstance()
+
     private lateinit var mUserName: String
 
     private lateinit var mSharedPreferences: SharedPreferences
+    private lateinit var mBoardDetails: Board
+    private var products: MutableList<Board> = mutableListOf()
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -97,7 +98,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             intent.putExtra(Constants.NAME, mUserName)
             startActivityForResult(intent, CREATE_BOARD_REQUEST_CODE)
         }
+
+
     }
+
+
+
+
+
+
 
     /**
      * A function to notify the token is updated successfully in the database.
@@ -256,8 +265,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    fun populateBoardsListToUI(boardsList: ArrayList<Board>) {
 
+
+
+    fun populateBoardsListToUI(boardsList: ArrayList<Board>) {
         hideProgressDialog()
         val rvBoardsList = findViewById<RecyclerView>(R.id.rv_boards_list)
         val tvNoBoardsAvailable = findViewById<TextView>(R.id.tv_no_boards_available)
@@ -281,6 +292,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     startActivity(intent)
                 }
             })
+
+
         } else {
             rvBoardsList.visibility = View.GONE
             tvNoBoardsAvailable.visibility = View.VISIBLE

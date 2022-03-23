@@ -62,4 +62,15 @@
 
     <string name="default_notification_channel_id">projemanag_notification_channel_id</string>
 
+    <string name="title_forgot_password">FORGOT PASSWORD?</string>
+    <string name="forgot_password_title_description">Enter your username and e-mail address we\'ll send you a email to reset your password</string>
+    <string name="btn_lbl_submit">Submit</string>
+    <string name="et_hint_email_id">Email ID</string>
+    <string name="content_description">image</string>
+    <string name="lbl_forgot_password">Forgot Password?</string>
+
+    <string name="email_sent_success">\"Email sent successfully to reset your password! \"</string>
+    <string name="err_msg_enter_email">Please enter email.</string>
+    <string name="delete_board">Delete Board</string>
+
 </resources>

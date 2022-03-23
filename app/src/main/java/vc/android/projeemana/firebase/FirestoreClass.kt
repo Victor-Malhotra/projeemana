@@ -283,6 +283,14 @@ class FirestoreClass {
         return currentUserID
     }
 
+
+
+    fun deleteBoard(model: Board){
+        mFireStore.collection(Constants.BOARDS)
+            .document(model.documentId).delete().addOnSuccessListener { Log.d("deleteBoardSuccess", "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w("deleteBoardFailure", "Error deleting document", e) }
+    }
+
     /**
      * A function to update the user profile data into the database.
      */

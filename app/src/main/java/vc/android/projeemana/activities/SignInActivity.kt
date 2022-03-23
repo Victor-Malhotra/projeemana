@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import vc.android.projeemana.R
 import vc.android.projeemana.firebase.FirestoreClass
 import vc.android.projeemana.models.User
+import vc.android.projeemana.utils.MSPTextView
 
 class SignInActivity : BaseActivity() {
 
@@ -37,6 +38,12 @@ class SignInActivity : BaseActivity() {
 
         btnSignIn.setOnClickListener {
             signInRegisteredUser()
+        }
+
+        val tvForgotPassword = findViewById<MSPTextView>(R.id.tv_forgot_password)
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this@SignInActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 

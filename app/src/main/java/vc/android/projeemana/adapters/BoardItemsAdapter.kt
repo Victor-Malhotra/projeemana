@@ -1,16 +1,18 @@
 package vc.android.projeemana.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import vc.android.projeemana.R
+import vc.android.projeemana.firebase.FirestoreClass
 import vc.android.projeemana.models.Board
+import vc.android.projeemana.utils.Constants
 
 
 open class BoardItemsAdapter(
@@ -19,6 +21,9 @@ open class BoardItemsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
+
+    private lateinit var mBoardDetails: Board
+
 
     /**
      * Inflates the item views which is designed in xml layout file
@@ -50,6 +55,8 @@ open class BoardItemsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
+
+
         if (holder is MyViewHolder) {
 
             Glide
@@ -61,6 +68,7 @@ open class BoardItemsAdapter(
 
             holder.itemView.findViewById<TextView>(R.id.tv_name).text = model.name
             holder.itemView.findViewById<TextView>(R.id.tv_created_by).text = "Created By : ${model.createdBy}"
+
 
             holder.itemView.setOnClickListener {
 
